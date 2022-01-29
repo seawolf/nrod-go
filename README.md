@@ -39,12 +39,12 @@ General information about the feed data can be found on the excellent [Open Rail
 
 #### Prerequisites
 1. an account at [the Network Rail Data Feeds website](http://datafeeds.networkrail.co.uk/)
-2. a subscription to the Train Movements feed of **one** TOC - note that this software is currently limited to one connection/subscription/TOC
+2. a subscription to the Train Movements feed of one or more TOCs
 
 #### Invocation
 
 1. copy the `.env.example` file to `.env`
 2. fill in the username (`STOMP_USERNAME`) and password (`STOMP_PASSWORD`) with your log-in credentials of [the Network Rail Data Feeds website](http://datafeeds.networkrail.co.uk/).
-3. fill in the TOC code for the feed name `TRAIN_MVT_??_TOC`, e.g. a subscription to `Stagecoach Sth Western Trains Ltd (HY)` shows a TOC code of `HY` to create the feed name `TRAIN_MVT_HY_TOC`.
+3. fill in the TOC code for the feed name `FEEDS_TRAIN_MOVEMENTS`, e.g. a subscription to `Stagecoach Sth Western Trains Ltd (HY)` shows a TOC code of `HY` to create the feed name `TRAIN_MVT_HY_TOC`. Multiple feeds are comma-separated, e.g. `FEEDS_TRAIN_MOVEMENTS=TRAIN_MVT_HY_TOC,TRAIN_MVT_ET_TOC`
 4. build the container with `docker build -t nrod-go:latest .`
 5. run the container with `docker run --rm --env-file ./.env nrod-go:latest`

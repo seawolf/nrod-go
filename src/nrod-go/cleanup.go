@@ -21,10 +21,15 @@ func cleanUpOnInterrupt() {
 }
 
 func cleanUp() {
-	if subscription != nil {
-		log.Printf("Unsubscribing from subscription...")
-		subscription.Unsubscribe()
-		log.Printf("Successfully unsubscribed from subscription.")
+	for subscriptionName, subscription := range subscriptions {
+		if subscription != nil {
+			log.Printf("Unsubscribing from subscription %s...", subscriptionName)
+			subscription.Unsubscribe()
+			log.Printf("Successfully unsubscribed from subscription %s.", subscriptionName)
+
+			delete(subscriptions, subscriptionName)
+			subscriptionWaitGroup.Done()
+		}
 	}
 
 	if connection != nil {

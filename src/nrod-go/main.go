@@ -10,30 +10,39 @@ func main() {
 	connectionError := connect()
 	defer connection.Disconnect()
 	if connectionError != nil {
-		cleanUp()
 		log.Fatalf("error establishing connection: %v", connectionError.Error())
 	} else {
 		log.Printf("Connected: %v", connection.Session())
+
+		for _, subscriptionName := range subscriptionNames {
+			subscriptionWaitGroup.Add(1)
+			go workSubscription(subscriptionName)
+		}
+		subscriptionWaitGroup.Wait()
 	}
 
-	subscriptionError := subscribe()
-	if subscriptionError != nil {
+	if len(subscriptions) > 0 {
+		log.Println("Cleaning up...")
 		cleanUp()
+	}
+}
+
+func workSubscription(subscriptionName string) {
+	subscription, subscriptionError := subscribe(subscriptionName)
+
+	if subscriptionError != nil {
 		log.Printf("error subscribing: %v", subscriptionError)
-	} else {
-		log.Printf("Subscribed: %v", subscription.Id())
+		return
 	}
 
-	var processError error
+	subscriptions[subscriptionName] = subscription
+	log.Printf("Subscribed: %s (%v)", subscriptionName, subscription.Id())
 
 	for {
-		log.Println("Waiting for messages...")
-
-		processError = processMessages()
-
-		if processError != nil {
-			cleanUp()
-			log.Printf("error processing: %v", processError)
+		if subscription == nil {
+			return
 		}
+
+		processMessages(subscription)
 	}
 }

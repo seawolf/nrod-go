@@ -9,26 +9,30 @@ import (
 	"github.com/go-stomp/stomp/v3"
 )
 
-func processMessages() error {
-	message, messageError := getMessage()
+func processMessages(subscription *stomp.Subscription) error {
+	message, messageError := getMessage(subscription)
 	if messageError != nil {
-		log.Printf("Error fetching messages: %v", messageError)
 		return messageError
 	}
 
-	connection.Begin()
-	processMessage(message)
+	if message != nil {
+		processMessage(subscription, message)
+	}
 
 	return nil
 }
 
-func getMessage() (*stomp.Message, error) {
+func getMessage(subscription *stomp.Subscription) (*stomp.Message, error) {
 	message := <-subscription.C
 
-	return message, message.Err
+	if message == nil {
+		return nil, nil
+	} else {
+		return message, message.Err
+	}
 }
 
-func processMessage(msg *stomp.Message) {
+func processMessage(subscription *stomp.Subscription, msg *stomp.Message) {
 	var messages []messages.MovementMessage
 	err := json.Unmarshal(msg.Body, &messages)
 
@@ -41,7 +45,7 @@ func processMessage(msg *stomp.Message) {
 	for _, message := range messages {
 		msg := message.ToString()
 		if msg != "" {
-			log.Println(msg)
+			log.Printf("[%v] %v", subscription.Id(), msg)
 		}
 	}
 }

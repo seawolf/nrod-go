@@ -3,22 +3,22 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
+	"sync"
 
 	"github.com/go-stomp/stomp/v3"
 )
 
-var subscription *stomp.Subscription
-var subscriptionName string
+var subscriptionWaitGroup sync.WaitGroup
+var subscriptions map[string]*stomp.Subscription
+var subscriptionNames []string
 
 func init() {
-	subscriptionName = os.Getenv("FEED_TRAIN_MOVEMENTS")
+	subscriptionNames = strings.Split(os.Getenv("FEEDS_TRAIN_MOVEMENTS"), ",")
+	subscriptions = map[string]*stomp.Subscription{}
 }
 
-func subscribe() error {
+func subscribe(subscriptionName string) (*stomp.Subscription, error) {
 	feedName := fmt.Sprintf("/topic/%s", subscriptionName)
-
-	newSubscription, subscriptionError := connection.Subscribe(feedName, stomp.AckAuto)
-	subscription = newSubscription
-
-	return subscriptionError
+	return connection.Subscribe(feedName, stomp.AckAuto)
 }
