@@ -1,14 +1,16 @@
 package messages
 
 import (
-	"encoding/json"
 	"fmt"
-	"log"
-	"strconv"
 	"strings"
-
-	"bitbucket.org/sea_wolf/nrod-go/v2/nrod-go/data"
 )
+
+type MovementMessage struct {
+	Message
+
+	Header MovementHeader `json:"header"`
+	Body   MovementBody   `json:"body"`
+}
 
 type MovementHeader struct {
 	Header
@@ -33,11 +35,9 @@ type MovementBody struct {
 	Platform               string       `json:"platform"`
 	DivisionCode           string       `json:"division_code"`
 	TrainTerminated        string       `json:"train_terminated"`
-	TrainID                string       `json:"train_id"`
 	Offroute               string       `json:"offroute_ind"`
 	VariationStatus        string       `json:"variation_status"`
 	TrainServiceCode       string       `json:"train_service_code"`
-	OperatorID             string       `json:"toc_id"`
 	LocationStanox         string       `json:"loc_stanox"`
 	AutoExpected           string       `json:"auto_expected"`
 	Direction              string       `json:"direction_ind"`
@@ -45,39 +45,6 @@ type MovementBody struct {
 	PlannedEventType       string       `json:"planned_event_type"`
 	NextReportStanox       string       `json:"next_report_stanox"`
 	Line                   string       `json:"line_ind"`
-}
-
-func NewMovementMessage(jsonBody []byte) *MovementMessage {
-	var message *MovementMessage
-	err := json.Unmarshal(jsonBody, &message)
-
-	if err != nil {
-		log.Printf("Error: %v", err)
-	} else {
-		log.Printf("Detected a MovementMessage!")
-	}
-
-	return message
-}
-
-func (message *MovementMessage) TOCName() (name string) {
-	id, err := strconv.Atoi(message.Body.OperatorID)
-
-	if err == nil {
-		name = data.TOCsByID[id]
-	}
-
-	return
-}
-
-func (message *MovementMessage) LocationName(stanoxNumber string) (name string) {
-	id, err := strconv.Atoi(stanoxNumber)
-
-	if err == nil {
-		name = data.StanoxByID[id]
-	}
-
-	return
 }
 
 func (message *MovementMessage) Platform() string {
@@ -92,15 +59,8 @@ func (message *MovementMessage) Departure() bool {
 	return message.Body.EventType == "DEPARTURE"
 }
 
-func (message *MovementMessage) Headcode() string {
-	if len(message.Body.TrainID) >= 6 {
-		return message.Body.TrainID[2:6]
-	}
-	return "????"
-}
-
 func (message *MovementMessage) ToString() string {
-	locationName := message.LocationName(message.Body.LocationStanox)
+	locationName := message.Body.LocationName(message.Body.LocationStanox)
 	if locationName == "" {
 		return ""
 	}
@@ -127,7 +87,7 @@ func (message *MovementMessage) ToString() string {
 	}
 
 	if !message.Arrival() && message.Body.NextReportStanox != "" {
-		nextReportStanox := message.LocationName(message.Body.NextReportStanox)
+		nextReportStanox := message.Body.LocationName(message.Body.NextReportStanox)
 		if nextReportStanox != "" {
 			locationInfo = fmt.Sprintf("%s towards %s", locationInfo, nextReportStanox)
 		}
@@ -135,8 +95,8 @@ func (message *MovementMessage) ToString() string {
 
 	return fmt.Sprintf(
 		"train %s by %s has %s",
-		message.Headcode(),
-		message.TOCName(),
+		message.Body.Headcode(),
+		message.Body.TOCName(),
 		locationInfo,
 	)
 }

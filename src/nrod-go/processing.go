@@ -1,11 +1,9 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
 	"log"
 
-	"bitbucket.org/sea_wolf/nrod-go/v2/nrod-go/messages"
+	messageTypes "bitbucket.org/sea_wolf/nrod-go/v2/nrod-go/messages"
 	"github.com/go-stomp/stomp/v3"
 )
 
@@ -32,20 +30,13 @@ func getMessage(subscription *stomp.Subscription) (*stomp.Message, error) {
 	}
 }
 
-func processMessage(subscription *stomp.Subscription, msg *stomp.Message) {
-	var messages []messages.MovementMessage
-	err := json.Unmarshal(msg.Body, &messages)
-
-	if err != nil {
-		var out bytes.Buffer
-		json.Indent(&out, msg.Body, "", "\t")
-		log.Printf("error parsing JSON: %v\n%s", err, out.String())
-	}
+func processMessage(subscription *stomp.Subscription, subscriptionMessage *stomp.Message) {
+	messages := messageTypes.Detect(subscriptionMessage.Body)
 
 	for _, message := range messages {
-		msg := message.ToString()
-		if msg != "" {
-			log.Printf("[%v] %v", subscription.Id(), msg)
+		output := message.ToString()
+		if output != "" {
+			log.Printf("[%v] %v", subscription.Id(), output)
 		}
 	}
 }

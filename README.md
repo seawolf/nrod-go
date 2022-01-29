@@ -6,33 +6,33 @@ General information about the feed data can be found on the excellent [Open Rail
 
 #### Example Output
 ```
-2022/01/29 11:56:16 Connecting: datafeeds.networkrail.co.uk:61618 ...
-2022/01/29 11:56:16 Connected: ID:opendata-prod[...]
-2022/01/29 11:56:16 Subscribed: 1
+2022/01/29 22:30:20 Connecting: datafeeds.networkrail.co.uk:61618 ...
+2022/01/29 22:30:20 Connected: ID:opendata-prod[...]
+2022/01/29 22:30:20 Subscribed: TRAIN_MVT_ET_TOC (1)
+2022/01/29 22:30:20 Subscribed: TRAIN_MVT_HY_TOC (2)
 
-2022/01/29 11:56:16 Waiting for messages...
-
-2022/01/29 11:56:22 train 1P27 by South Western Railway has arrived at HAVANT (HAV) platform 2 travelling DOWN
-2022/01/29 11:56:22 train 1L40 by South Western Railway has departed from TEMPLECOMBE (TMC) platform 1 travelling UP towards GILLINGHAM (DORSET) (GIL)
-2022/01/29 11:56:22 train 1L40 by South Western Railway has arrived at GILLINGHAM (DORSET) (GIL) platform 1 travelling UP
-2022/01/29 11:56:22 train 2U32 by South Western Railway has arrived at DATCHET (DAT) platform 1 travelling UP
-2022/01/29 11:56:22 train 1D25 by South Western Railway has departed from STONELEIGH (SNL) platform 2 travelling DOWN towards EWELL WEST (EWW)
-2022/01/29 11:56:22 train 2D27 by South Western Railway has arrived at VAUXHALL (VXH) platform 6 travelling DOWN
-2022/01/29 11:56:22 train 2G30 by South Western Railway has arrived at CLAPHAM JUNCTION (CLJ) / CLAPHAM JN. C.S. (XCP) platform 10 travelling UP
-2022/01/29 11:56:22 train 1W58 by South Western Railway has arrived at HOLTON HEATH (HOL)
-2022/01/29 11:56:22 train 1L44 by South Western Railway has departed from HONITON (HON) platform 1 travelling UP
-2022/01/29 11:56:22 train 1P38 by South Western Railway has departed from FRATTON (FTN) platform 1 on line "M" travelling UP
-2022/01/29 11:56:22 train 2L38 by South Western Railway has departed from BASINGSTOKE (BSK) platform 1 travelling UP towards HOOK (HOK)
-2022/01/29 11:56:22 Waiting for messages...
+2022/01/29 22:30:22 [2] train 2K67 by South Western Railway has arrived at HAMPTON WICK (HMW) platform 2 travelling DOWN
+2022/01/29 22:30:22 [2] train 1L73 by South Western Railway has arrived at VIRGINIA WATER (VIR)
+2022/01/29 22:30:22 [2] activation of train 1A75 for South Western Railway
+2022/01/29 22:30:22 [2] train 2U74 by South Western Railway has departed from SUNNYMEADS (SNY) platform 1 travelling UP towards WRAYSBURY (WRY)
+2022/01/29 22:30:22 [2] train 2U74 by South Western Railway has arrived at WRAYSBURY (WRY) platform 1 travelling UP
+2022/01/29 22:30:32 [1] train 1I66 by Govia Thameslink Railway (Thameslink / Southern) has arrived at HACKBRIDGE (HCB) platform 2 travelling DOWN
+2022/01/29 22:30:32 [1] train 1F65 by Govia Thameslink Railway (Thameslink / Southern) has arrived at NORWOOD JUNCTION (NWD) platform 3 travelling UP
+2022/01/29 22:30:32 [1] train 9O79 by Govia Thameslink Railway (Thameslink / Southern) has arrived at FARRINGDON (ZFD) platform 3 travelling DOWN
+2022/01/29 22:30:32 [2] train 2S71 by South Western Railway has arrived at ST DENYS (SDN) platform 2 travelling DOWN
+2022/01/29 22:30:32 [2] train 2E72 by South Western Railway has departed from BITTERNE (BTE) platform 1 travelling UP towards ST DENYS (SDN)
+2022/01/29 22:30:32 [2] train 2H69 by South Western Railway has arrived at RAYNES PARK (RAY) platform 3 travelling DOWN
+2022/01/29 22:30:32 [2] train 2E72 by South Western Railway has arrived at ST DENYS (SDN) platform 4 travelling UP
+2022/01/29 22:30:32 [2] activation of train 2T75 for South Western Railway
 
 ^C
 
-2022/01/29 11:56:25 Cleaning-up...
-2022/01/29 11:56:25 Unsubscribing from subscription...
-2022/01/29 11:56:25 Successfully unsubscribed from subscription.
-2022/01/29 11:56:25 Disconnecting from connection...
-2022/01/29 11:56:25 Sucessfully disconnected from connection.
-2022/01/29 11:56:25 Cleaned-up; exiting.
+2022/01/29 22:30:34 Cleaning-up...
+2022/01/29 22:30:34 Unsubscribing from subscription...
+2022/01/29 22:30:34 Successfully unsubscribed from subscription.
+2022/01/29 22:30:34 Disconnecting from connection...
+2022/01/29 22:30:34 Sucessfully disconnected from connection.
+2022/01/29 22:30:34 Cleaned-up; exiting.
 ```
 
 ## Usage
