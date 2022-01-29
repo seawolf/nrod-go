@@ -22,4 +22,6 @@ RUN go mod download && go mod tidy
 
 COPY src /usr/local/go/src
 
-CMD sh
+RUN go build -mod=mod -o /bin/nrod-go ./nrod-go
+
+CMD ["/bin/nrod-go"]

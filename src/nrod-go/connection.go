@@ -17,7 +17,7 @@ var stompServer string
 var stompUsername string
 var stompPassword string
 
-func Init() {
+func init() {
 	stompServer = os.Getenv("STOMP_SERVER")
 	stompUsername = os.Getenv("STOMP_USERNAME")
 	stompPassword = os.Getenv("STOMP_PASSWORD")
