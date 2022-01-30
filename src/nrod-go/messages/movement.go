@@ -94,7 +94,7 @@ func (message *MovementMessage) ToString() string {
 	}
 
 	return fmt.Sprintf(
-		"train %s by %s has %s",
+		"Train %s by %s has %s",
 		message.Body.Headcode(),
 		message.Body.TOCName(),
 		locationInfo,

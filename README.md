@@ -25,6 +25,11 @@ General information about the feed data can be found on the excellent [Open Rail
 2022/01/29 22:30:32 [2] train 2E72 by South Western Railway has arrived at ST DENYS (SDN) platform 4 travelling UP
 2022/01/29 22:30:32 [2] activation of train 2T75 for South Western Railway
 
+2022/01/30 16:37:07 [1] Train 2H43 by South Western Railway has arrived at MORTLAKE (MTL) platform 2 travelling DOWN
+2022/01/30 16:37:07 [1] Activation of train 2L59 for South Western Railway originating at LONDON WATERLOO (WAT)
+2022/01/30 16:37:07 [1] Cancellation of train 2L59 for South Western Railway effective from LONDON WATERLOO (WAT) due to System generated cancellation
+2022/01/30 16:37:07 [1] Train 2S45 by South Western Railway has departed from DEAN (DEN) platform 2 travelling DOWN
+
 ^C
 
 2022/01/29 22:30:34 Cleaning-up...

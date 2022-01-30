@@ -45,6 +45,10 @@ func Detect(subscriptionMessage []byte) []GenericMessage {
 			var m *ActivationMessage
 			_ = json.Unmarshal(*obj, &m)
 			messages = append(messages, m)
+		} else if msg.IsCancellationMessage() {
+			var m *CancellationMessage
+			_ = json.Unmarshal(*obj, &m)
+			messages = append(messages, m)
 		} else if msg.IsMovementMessage() {
 			var m *MovementMessage
 			_ = json.Unmarshal(*obj, &m)
@@ -57,6 +61,10 @@ func Detect(subscriptionMessage []byte) []GenericMessage {
 
 func (message *Message) IsActivationMessage() bool {
 	return message.Header.MsgType == "0001"
+}
+
+func (message *Message) IsCancellationMessage() bool {
+	return message.Header.MsgType == "0002"
 }
 
 func (message *Message) IsMovementMessage() bool {

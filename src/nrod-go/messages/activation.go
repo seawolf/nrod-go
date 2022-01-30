@@ -43,7 +43,7 @@ func (message *ActivationMessage) ToString() string {
 	}
 
 	return fmt.Sprintf(
-		"activation of train %s for %s%s",
+		"Activation of train %s for %s%s",
 		message.Body.Headcode(),
 		message.Body.TOCName(),
 		locationInfo,
